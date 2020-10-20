@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Add Movies</h1>
+    <form action="/addMovies" method="POST">
+      <label for="mname">Movie Name</label>
+      <input type="text" class="form-control" name="mname">
+      <br>
+      <br>
+      <select name = "mcat">
+            <option value = "Thriller" selected>Thriller</option>
+            <option value = "Suspence">Suspence</option>
+            <option value = "Romance">Romance</option>
+            <option value = "Sci-fi">Sci-fi</option>
+      </select>
+      <br>
+      <br>
+      <label for="director">Director</label>
+      <input type="text" class="form-control" name="Director">
+      <br>
+      <br>
+      <select name = "mlang">
+            <option value = "English" selected>English</option>
+            <option value = "Hindi">Hindi</option>
+            <option value = "Tamil">Tamil</option>
+            <option value = "French">French</option>
+      </select>
+      <br>
+      <br>
+      <label for="summary">Description</label>
+      <input type="text" rows="5" cols="50"class="form-control" name="summary">
+      <br>
+      <br>
+      <label for="image">Image</label>
+      <input type = "file" name = "image" accept = "image/*" />
+      <br>
+      <br>
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </body>
+</html>

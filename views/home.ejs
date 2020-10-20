@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ReviewKing</title>
+  </head>
+  <body>
+    <div class="topnav">
+       <a class="active" href="home">Home</a>
+       <a href="#">About</a>
+       <a href="#">Contact</a>
+     <form class="form-inline" action="/home" method="post">
+       <input type="text" name="search" value="">
+       <input type="submit" name="" value="Search">
+     </form>
+     <% for (let i=0; i<movies.length; i++) {%>
+       <a href="moviedetail">
+         <p><%=movies[i].movieName%></p>
+       </a>
+     <%}%>
+     </div>
+  </body>
+</html>
