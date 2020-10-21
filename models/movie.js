@@ -18,10 +18,7 @@ const movieSchema = new mongoose.Schema({
   director : String,
   language : String,
   summary : String,
-  img : {
-    data : Buffer,
-    contentType : String
-  },
+  img : String,
   rating : [ratingSchema],
   reviews : [reviewSchema]
 })

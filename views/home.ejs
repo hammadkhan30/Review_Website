@@ -15,7 +15,16 @@
      </form>
      <% for (let i=0; i<movies.length; i++) {%>
        <a href="moviedetail">
-         <p><%=movies[i].movieName%></p>
+         <tr>
+           <td>
+             <%=movies[i].movieName%>
+           </td>
+           <td>
+            <% if(movies[i].img){ %>
+             <img src="./uploads/<%= movies[i].img %>" alt="image">
+            <%}%>
+          </td>
+         </tr>
        </a>
      <%}%>
      </div>

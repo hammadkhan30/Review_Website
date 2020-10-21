@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
+const multer = require('multer');
+const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -12,6 +14,19 @@ const rating = require('./models/rating');
 const review = require('./models/review');
 
 const app = express();
+
+app.use(express.static(__dirname+"./public/"));
+
+const Storage=multer.diskStorage({
+  destination:"./public/uploads/",
+  filename:(req,file,cb)=>{
+    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+  }
+})
+
+const upload = multer({
+  storage : Storage
+}).single('image');
 
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -204,14 +219,14 @@ app.post("/adminsignIn",function(req,res){
 
 });
 
-app.post("/addMovies",function(req,res){
+app.post("/addMovies",upload,function(req,res){
   const newmovies = new movies({
     movieName : req.body.mname,
     movieCategory : req.body.mcat,
     director : req.body.director,
     language : req.body.mlang,
     summary : req.body.summary,
-    img : req.body.image
+    img : req.file.filename,
   });
 
   newmovies.save(function(err){
@@ -226,6 +241,7 @@ app.post("/addMovies",function(req,res){
 function escapeRegex(text){
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&");
 };
+
 
 app.listen(3000,function(){
   console.log("Server Up and running at port 3000");
