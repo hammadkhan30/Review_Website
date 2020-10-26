@@ -19,15 +19,16 @@
               <form  action="/signIn" method="POST">
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" name="username">
+                  <input type="email" class="form-control" name="username" required>
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" name="password">
+                  <input type="password" class="form-control" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-secondary" >SignIn</button>
-                <a href="/signUp" role="button"><button type="submit" class="btn btn-secondary">Register</button></a>
               </form>
+              <br>
+              <a href="/signUp" role="button"><button type="submit" class="btn btn-secondary">Register</button></a>
              </div>
           </div>
         </div>

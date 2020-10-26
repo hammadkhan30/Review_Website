@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -12,8 +13,11 @@ const adminLog = require('./models/adminLog');
 const movies = require('./models/movie');
 const rating = require('./models/rating');
 const review = require('./models/review');
+const {ensureAuthenticated} = require('./config/auth');
 
 const app = express();
+
+require('./config/passport')(passport);
 
 app.use(express.static(__dirname+"./public/"));
 
@@ -44,10 +48,6 @@ app.use(passport.session());
 mongoose.connect("mongodb://localhost:27017/websiteDB",{useNewUrlParser:true});
 mongoose.set("useCreateIndex",true);
 
-passport.use(Users.createStrategy());
-
-passport.serializeUser(Users.serializeUser());
-passport.deserializeUser(Users.deserializeUser());
 
 app.get("/",function(req,res){
   res.render("signIn");
@@ -91,14 +91,14 @@ app.get("/moviedetail",async (req,res) => {
   });
 });
 
-app.get('/home', function(req, res, next) {
+app.get('/home',ensureAuthenticated,function(req, res, next) {
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search),'gi');
     movies.find({movieName: regex },function(err,totalItems){
       if (err) {
         console.log(err);
       }else {
-        res.render("home",{movies: totalItems});
+        res.render("home",{name : req.user.name, movies: totalItems});
       }
     });
   }else {
@@ -106,7 +106,7 @@ app.get('/home', function(req, res, next) {
         if(err) {
             console.log(err);
         }else{
-        res.render('home', {movies: totalItems});
+        res.render('home', {name : req.user.name, movies: totalItems});
       }
     });
   }
@@ -143,60 +143,61 @@ app.post("/moviedetail",function(req,res){
 });
 
 app.post("/signUp",function(req,res){
+  const {name,username,password } = req.body;
+  Users.findOne({username:username })
+    .then(user => {
+      if (user) {
+        errors.push({msg: 'username is already registered'});
+        res.render('signUp',{
+          name,
+          username,
+          password
+        });
+      }else {
+        const newUser = new Users({
+          name,
+          username,
+          password
+        });
+        bcrypt.genSalt(10,(err,salt) =>
+        bcrypt.hash(newUser.password,salt,(err,hash)=>{
+          if (err) {
+            console.log(err);
+          }
+          newUser.password = hash;
 
-  // Users.registor({username: req.body.username},req.body.password,function(err,user){
-  //   if (err) {
-  //     console.log(err);
-  //     res.redirect("/signUp");
-  //   }else {
-  //     passport.authenticate("local")(req,res,function(){
-  //       res.redirect("/home");
-  //     });
-  //   }
-  // });
-//   Users.registor({
-//     name : req.body.name,
-//     username : req.body.username,
-//     password : req.body.password,
-//     function(err,user){
-//       if (err) {
-//         console.log(err);
-//         res.redirect("/signUp")
-//       }else {
-//         passport.authenticate("local")(req,res,function(){
-//           res.redirect("/signIn");
-//         });
-//       }
-//     }
-//   });
-//
-//   newUser.save(function(err){
-//     if(err){
-//       console.log(err);
-//     }else{
-//       res.render("signIn")
-//     }
-//   });
+          newUser.save()
+            .then( Users => {
+              res.render("/");
+            })
+            .catch(err => console.log(err));
+        }))
+      }
+    });
 });
 
-app.post("/signIn",function(req,res){
-  const username = req.body.username;
-  const password = req.body.password;
-  Users.findOne({username: username},function(err,foundUser){
-    if(err){
-      console.log(err);
-    }else{
-      if (foundUser){
-        if (foundUser.password === password) {
-          movies.find({},function(err,foundItems){
-            res.render("home",{movies:foundItems})
-          });
-        }
-      }else {
-        res.redirect("signUp");
-      }
-    }
-  });
+app.post("/signIn",function(req,res,next){
+  passport.authenticate('local',{
+    successRedirect: '/home',
+    failureRedirect: '/'
+  })(req,res,next);
+  // const username = req.body.username;
+  // const password = req.body.password;
+  // Users.findOne({username: username},function(err,foundUser){
+  //   if(err){
+  //     console.log(err);
+  //   }else{
+  //     if (foundUser){
+  //       if (foundUser.password === password) {
+  //         movies.find({},function(err,foundItems){
+  //           res.render("home",{movies:foundItems})
+  //         });
+  //       }
+  //     }else {
+  //       res.redirect("signUp");
+  //     }
+  //   }
+  // });
 
 });
 
@@ -212,6 +213,7 @@ app.post("/adminsignIn",function(req,res){
           res.render("adminPage");
         }
       }else {
+        console.log("kya");
         res.redirect("admin");
       }
     }

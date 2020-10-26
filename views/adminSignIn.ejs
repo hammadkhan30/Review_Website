@@ -17,14 +17,14 @@
     <div class="main">
       <div class="col-md-6 col-sm-12">
         <div class="login-form">
-            <form  action="/signIn" method="POST">
+            <form  action="/adminsignIn" method="POST">
               <div class="form-group">
                 <label for="String">Id</label>
-                <input type="String" class="form-control" name="username">
+                <input type="String" class="form-control" name="username" required>
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" required>
               </div>
                 <button type="submit" class="btn btn-dark">SignIn</button>
               </form>

@@ -2,12 +2,39 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/viewUser.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>ReviewKing</title>
   </head>
   <body>
-    <h1>List Of Users</h1>
-    <% for (let i=0; i<items.length; i++) {%>
-      <p><%=items[i].name%></p> 
-    <%}%>
-  </body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <a class="navbar-brand">Admin Dashboard</a>
+      </div>
+    </nav>
+    <div class="container">
+    <div class="tab-content">
+    <div class="tab-pane fade in active" id="notConfirmed">
+      <table class="table table-striped">
+        <thead>
+          <td>Name</td>
+          <td>Username</td>
+          <td>Password</td>
+        </thead>
+        <tbody>
+         <% for (let i=0; i<items.length; i++) {%>
+          <tr>
+          <td><%=items[i].name%></td>
+          <td><%=items[i].username%></td>
+          <td><%=items[i].password%></td>
+          </tr>
+         <%}%>
+        </tbody>
+      </table>
+     </div>
+    </div>
+  </div>
+   </body>
 </html>
