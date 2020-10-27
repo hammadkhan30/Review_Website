@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
 <div class="container-fluid">
   <div class="navbar-header">
-   <a class="navbar-brand" href="home">ReviewKing</a>
+   <a class="navbar-brand" href="/home">ReviewKing</a>
  </div>
  <ul class="nav navbar-nav">
    <li><a href="#">About</a></li>
@@ -12,6 +12,10 @@
    <input type="text" class="form-control" name="search" value="">
  </div>
    <button class="btn btn-default" type="submit" >Submit</button>
-</form>
+ </form>
+ <ul class="nav navbar-nav navbar-right">
+   <li><%=logger.name%></li>
+   <li><a href="/logout" class="btn btn-secondary">Logout</a></li>
+ </ul>
 </div>
-</nav>\
+</nav>

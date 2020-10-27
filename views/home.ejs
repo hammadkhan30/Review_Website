@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/home1.css">
+    <link rel="stylesheet" href="/css/card.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -14,25 +15,32 @@
     <br>
     <br>
     <br>
-    <p><%= name %></p>
-    <div class="container">
-     <div class="card-group vgr-cards">
+    <% for (let i=0; i<movies.length; i++) {%>
+    <div class="container-fluid">
+      <div class="row">
+     <div class="col-12 mt-3">
       <div class="card">
-        <% for (let i=0; i<movies.length; i++) {%>
-          <a href="moviedetail">
-            <div class="card-img-body">
-            <% if(movies[i].img){ %>
-              <img class="card-img" src="./uploads/<%= movies[i].img %>" alt="image">
-            <%}%>
-            </div>
-            <div class="card-body">
-            <h4 class="card-title"><%=movies[i].movieName%></h4>
-          </a>
-        <%}%>
-      </div>
-    </div>
-  </div>
-</div>
-<%- include ('partials/footer') %>
-</body>
-</html>
+        <div class="card-horizontal">
+          <div class="img-square-wrapper">
+              <a href="moviedetail/<%=movies[i].movieName %>">
+                  <% if(movies[i].img){ %>
+                  <img class="image" src="./uploads/<%= movies[i].img %>" alt="image">
+                  <%}%>
+              </div>
+                <div class="card-body">
+                  <h4 class="card-title"><%=movies[i].movieName%></h4>
+                  <h5 class="card-title"><%=movies[i].movieCategory%></h5>
+                  <h5 class="card-title"><%=movies[i].director%></h5>
+                  <p class="card-text"><%=movies[i].summary%></p>
+              </a>
+          </div>
+         </div>
+        </div>
+       </div>
+     </div>
+   </div>
+   <br>
+   <%}%>
+   <%- include ('partials/footer') %>
+   </body>
+   </html>

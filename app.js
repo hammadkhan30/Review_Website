@@ -21,6 +21,7 @@ require('./config/passport')(passport);
 
 app.use(express.static(__dirname+"./public/"));
 
+
 const Storage=multer.diskStorage({
   destination:"./public/uploads/",
   filename:(req,file,cb)=>{
@@ -44,6 +45,11 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function (req, res,next){
+    res.locals.logger = req.user;
+    next();
+});
 
 mongoose.connect("mongodb://localhost:27017/websiteDB",{useNewUrlParser:true});
 mongoose.set("useCreateIndex",true);
@@ -79,7 +85,7 @@ app.get("/addMovies",function(req,res){
   res.render("addMovies");
 });
 
-app.get("/moviedetail",async (req,res) => {
+app.get("/moviedetail/:movieName",ensureAuthenticated,async (req,res) => {
   var name = req.params.movieName
   console.log(name);
   movies.findOne({movieName : name},function(err,foundItems){
@@ -106,11 +112,16 @@ app.get('/home',ensureAuthenticated,function(req, res, next) {
         if(err) {
             console.log(err);
         }else{
-        res.render('home', {name : req.user.name, movies: totalItems});
+        res.render('home', { movies: totalItems});
       }
     });
   }
 
+});
+
+app.get('/logout',function(req,res){
+  req.logout();
+  res.redirect('/');
 });
 
 app.post('/home', function(req, res, next) {
@@ -124,22 +135,44 @@ app.post('/home', function(req, res, next) {
     });
   });
 
-app.post("/moviedetail",function(req,res){
-  const newComment = new review({
-    comment : req.body.comm
+app.post("/addComment/:movieName",function(req,res){
+  var date = new Date().toLocaleDateString();
+  var nm = req.user.name;
+  const reviews = new review({
+    user : nm,
+    comment : req.body.comm,
+    date : date
   });
-  const newRating = new rating({
-    rating : req.body.rate
+  var name = req.params.movieName;
+  movies.findOneAndUpdate(
+    {movieName:name},
+    {$push:{reviews: reviews}},
+    function(err,success){
+      if (err) {
+        console.log(err);
+      }else {
+        console.log("record added");
+      }
+    });
+    res.redirect("back")
+});
+
+app.post("/addRating/:movieName",function(req,res){
+  const rat = new rating({
+    rating: req.body.ratings
   });
-  var name = req.params.movieName
+  var name = req.params.movieName;
   movies.findOneAndUpdate(
-    {movieName : name},
-    {$push : {comment : comment}},
-  )
-  movies.findOneAndUpdate(
-    {movieName : name},
-    {$push : {rating : rating}},
-  )
+    {movieName:name},
+    {$push:{rating:rat}},
+    function(err,success){
+      if (err) {
+        console.log(err);
+      }else {
+        console.log("rating added");
+      }
+    });
+    res.redirect("back");
 });
 
 app.post("/signUp",function(req,res){
