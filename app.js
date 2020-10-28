@@ -75,6 +75,14 @@ app.get("/search",function(req,res){
   res.render("search");
 });
 
+app.get("/about",function(req,res){
+  res.render("about");
+});
+
+app.get("/contact",function(req,res){
+  res.render("contact");
+});
+
 app.get("/viewUser",function(req,res){
   Users.find({},function(err,foundItems){
     res.render("viewUser",{items: foundItems});
@@ -86,13 +94,13 @@ app.get("/addMovies",function(req,res){
 });
 
 app.get("/moviedetail/:movieName",ensureAuthenticated,async (req,res) => {
-  var name = req.params.movieName
-  console.log(name);
+  var name = req.params.movieName;
   movies.findOne({movieName : name},function(err,foundItems){
     if (err) {
       console.log(err);
     }else {
-      res.render("moviedetail",{movies : foundItems})
+
+      res.render("moviedetail",{movies : foundItems,reviews:foundItems.reviews})
     }
   });
 });
@@ -198,10 +206,9 @@ app.post("/signUp",function(req,res){
             console.log(err);
           }
           newUser.password = hash;
-
           newUser.save()
             .then( Users => {
-              res.render("/");
+              res.render("signIn");
             })
             .catch(err => console.log(err));
         }))

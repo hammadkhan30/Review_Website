@@ -4,23 +4,30 @@
 .navbar-custom {
     background-color: #000000;
 }
-/* change the brand and text color */
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     color: rgba(255,255,255,.8);
+}
+.btn{
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 30px;
+  background-color: #505050;
+  color: white;
+  width: 180px;
+  height: 40px;
+}
+.heading{
+  margin: 30px;
+  font-size: 55px;
+}
+.para{
+  margin: 30px;
+  font-size: 35px;
 }
 .qwe{
   margin-right: 30px;
   margin-top: 10px;
   color: white;
   font-size: 30px;
-}
-
-.btn{
-  margin-top: 10px;
-  margin-right: 10px;
-  background-color: #505050;
-  color: white;
-  width: 180px;
-  height: 40px;
 }

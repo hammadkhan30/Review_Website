@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/card1.css">
+    <link rel="stylesheet" href="/css/comment.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -34,20 +37,37 @@
        </div>
       </div>
      </div>
+     <br>
+     <br>
+     <form class="frm" action="/addRating/<%=movies.movieName%>" method="post">
+       <label for="comm">Rate the Movie</label>
+       <br>
+       <input type="radio" name="" value="1">1
+       <input type="radio" name="" value="2">2
+       <input type="radio" name="" value="3">3
+       <input type="radio" name="" value="4">4
+       <input type="radio" name="" value="5">5
+       <button type="submit" class="btn btn-secondary" name="submit">Submit</button>
+     </form>
+     <br>
+     <br>
      <form action="/addComment/<%=movies.movieName%>" method="POST">
-       <label for="comm">Comment</label>
-       <input type="text" class="form-control" name="comm">
-       <button type="submit" name="submit">Submit</button>
+       <label class="lab" for="comm">Comment</label>
+       <br>
+       <textarea type="text" class="texty" name="comm"></textarea>
+       <br>
+       <button type="submit" class="btn btn-secondary" name="submit">Submit</button>
       </form>
       <br>
       <br>
-      <form class="" action="/addRating/<%=movies.movieName%>" method="post">
-        <input type="radio" name="" value="1">1
-        <input type="radio" name="" value="2">2
-        <input type="radio" name="" value="3">3
-        <input type="radio" name="" value="4">4
-        <input type="radio" name="" value="5">5
-        <button type="submit" name="submit">Submit</button>
-      </form>
+
+      <div class="cnt">
+      <h3>Comments</h3>
+      <% reviews.forEach(function(reviews){%>
+        <h5><%=reviews.user%></h5>
+        <p><%=reviews.comment%></p>
+      <%})%>
+    </div>
+      <%- include ('partials/footer') %>
   </body>
 </html>

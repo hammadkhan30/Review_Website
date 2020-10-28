@@ -2,17 +2,30 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/viewUser.css">
+    <link rel="stylesheet" href="/css/addMovies.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title></title>
   </head>
   <body>
+    <nav class="navbar navbar-custom">
+        <h1 class="navbar-brand">ReviewKing</h1>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="qwe">Admin</li>
+        <li><a href="Admin" class="btn btn-secondary">Logout</a></li>
+      </ul>
+    </nav>
+    <div class="qwerty">
     <h1>Add Movies</h1>
     <form action="/addMovies" method="POST" role="form" enctype="multipart/form-data">
       <label for="mname">Movie Name</label>
-      <input type="text" class="form-control" name="mname">
       <br>
+      <input type="text" class="xyz" name="mname">
+      <br>
+      <br>
+      <label for="mcat">Movie Category</label>
       <br>
       <select name = "mcat">
             <option value = "Thriller" selected>Thriller</option>
@@ -22,9 +35,11 @@
       </select>
       <br>
       <br>
-      <label for="director">Director</label>
-      <input type="text" class="form-control" name="director">
+      <label for="director">Director</label><br>
+      <input type="text" class="xyz" name="director">
       <br>
+      <br>
+      <label for="mname">Movie Language</label>
       <br>
       <select name = "mlang">
             <option value = "English" selected>English</option>
@@ -34,8 +49,8 @@
       </select>
       <br>
       <br>
-      <label for="summary">Description</label>
-      <input type="text" rows="5" cols="50"class="form-control" name="summary">
+      <label for="summary">Description</label><br>
+      <textarea type="text" rows="5" cols="50"class="xyz1" name="summary"></textarea>
       <br>
       <br>
       <label for="image">Image</label>
@@ -44,5 +59,6 @@
       <br>
       <button type="submit" class="btn btn-dark">Submit</button>
     </form>
+  </div>
   </body>
 </html>

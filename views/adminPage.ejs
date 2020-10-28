@@ -2,11 +2,24 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/adminPage.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>ADMIN_ReviewKing</title>
   </head>
   <body>
-    <h1>Hey Admin</h1>
-    <a href="/viewUser" role="button">View</a>
-    <a href="/addMovies" role="button">Add Movies</a>
+    <nav class="navbar navbar-custom">
+        <h1 class="navbar-brand">ReviewKing</h1>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="qwe">Admin</li>
+        <li><a href="Admin" class="btn btn-secondary">Logout</a></li>
+      </ul>
+    </nav>
+    <h1 class="heading">Hey Admin</h1>
+    <p class="para">Welcome Back!</p>
+    <p class="para">What would you like to do ......</p>
+    <a href="/viewUser" class="btn btn-Primary btn-large" >View</a>
+    <a href="/addMovies" class="btn btn-Primary btn-large" role="button">Add Movies</a>
   </body>
 </html>

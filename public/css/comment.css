@@ -1,0 +1,25 @@
+.texty{
+  width: 500px;
+  height: 150px;
+  margin-left: 30px;
+}
+.lab{
+  margin-left: 30px;
+}
+.btn{
+  margin-left: 30px;
+  color: white;
+  background-color: #505050;
+}
+.frm{
+  margin-left: 30px;
+}
+
+.cnt{
+  width: 600px;
+  background-color: #909090;
+  margin: 30px;
+}
+.cnt h3{
+  text:bold;
+}

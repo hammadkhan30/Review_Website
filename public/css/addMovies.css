@@ -1,0 +1,24 @@
+.qwerty{
+  margin-left: 30px;
+}
+.qwe{
+  margin-right: 30px;
+  margin-top: 10px;
+  color: white;
+  font-size: 30px;
+}
+.btn{
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #505050;
+  color: white;
+  width: 180px;
+  height: 40px;
+}
+.xyz{
+  width: 500px;
+}
+.xyz1{
+  width: 500px;
+  height: 150px;
+}
